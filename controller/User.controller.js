@@ -7,7 +7,8 @@ const Review = models.Review;
 const { v1: uuidv1 } = require("uuid");
 const bcrypt = require("bcryptjs");
 const secret = "4641316895";
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const e = require("express");
 
 const create = async (req, res) => {
   const data = req.body;
@@ -171,6 +172,8 @@ const Myorder = async (req, res) => {
           );
         }
         res.send(orderdata);
+      } else {
+        res.send([]);
       }
     })
     .catch((err) => {
@@ -182,30 +185,22 @@ const Myorder = async (req, res) => {
 };
 const Myorder_store = async (req, res) => {
   const data = req.body.id;
-  console.log(data);
   await Order.findAll({ where: { store: data } })
     .then(async (data) => {
-      console.log(data);
       if (data.length !== 0) {
         var orderdata = [];
         for (var i = 0; i < data.length; i++) {
           await Product.findAll({ where: { id: data[i].product_id } }).then(
             async (productdata) => {
-              console.log(productdata);
               await Variation.findAll({
                 where: { id: data[i].variations },
               }).then(async (variationdata) => {
-                console.log(variationdata);
-
                 await User.findAll({
                   where: { user_id: data[i].user_id },
                 }).then(async (userdata) => {
-                  console.log(userdata);
-
                   await Review.findAll({
                     where: { orderid: data[i].id },
                   }).then((reviewdata) => {
-                    console.log(reviewdata);
 
                     orderdata.push({
                       product: productdata[0],
@@ -221,6 +216,8 @@ const Myorder_store = async (req, res) => {
           );
         }
         res.send(orderdata);
+      }else {
+        res.send([]);
       }
     })
     .catch((err) => {

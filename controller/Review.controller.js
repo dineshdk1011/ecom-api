@@ -127,6 +127,8 @@ const Myreview = async (req, res) => {
           );
         }
         res.send(reviewdata);
+      } else {
+        res.send([]);
       }
     })
     .catch((err) => {

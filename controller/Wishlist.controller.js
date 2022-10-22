@@ -121,10 +121,12 @@ const mywishlist = async (req, res) => {
           );
         }
         res.send(orderdata);
+      } else {
+        res.send([]);
       }
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       res.json({
         status: 400,
         message: "Some error occurred in query",
