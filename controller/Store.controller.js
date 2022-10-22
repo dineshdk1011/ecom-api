@@ -30,6 +30,7 @@ const viewall = async (req, res) => {
       });
     })
     .catch((err) => {
+      console.log(err);
       res.json({
         status: 400,
         message: "Some error occurred in query",
