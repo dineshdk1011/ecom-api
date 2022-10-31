@@ -1,5 +1,6 @@
 const models = require("../models");
 const Store = models.Store;
+const db = require("../models");
 
 const create = async (req, res) => {
   const data = req.body;
@@ -99,8 +100,7 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
   const data = req.body.id;
-
-  await Store.destroy({ where: { id: data } })
+  await Store.destroy({ where: { id: data },include: [db.Category,db.Navbar,db.Coverimg,db.Journal,db.Products] })
     .then(() => {
       res.json({
         status: 200,

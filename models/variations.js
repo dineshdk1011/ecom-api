@@ -1,27 +1,21 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Variations extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
-  Variations.init({
-    productID: DataTypes.STRING,
-    value: DataTypes.STRING,
-    type: DataTypes.STRING,
-    price: DataTypes.STRING,
-    stock:DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'Variations',
-  });
+  const Variations = sequelize.define(
+    "Variations",
+    {
+      productID: DataTypes.STRING,
+      value: DataTypes.STRING,
+      type: DataTypes.STRING,
+      price: DataTypes.STRING,
+      stock:DataTypes.STRING,
+    },
+    {}
+  );
+  Variations.associate = function (models) {
+    // associations can be defined here
+    Variations.belongsTo(models.Products, {
+      foreignKey: "productID",
+      onDelete: "CASCADE",
+    });
+  };
   return Variations;
 };

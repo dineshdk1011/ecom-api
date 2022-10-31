@@ -7,7 +7,7 @@ const Review = models.Review;
 const { v1: uuidv1 } = require("uuid");
 const bcrypt = require("bcryptjs");
 const secret = "4641316895";
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const e = require("express");
 
 const create = async (req, res) => {
@@ -201,7 +201,6 @@ const Myorder_store = async (req, res) => {
                   await Review.findAll({
                     where: { orderid: data[i].id },
                   }).then((reviewdata) => {
-
                     orderdata.push({
                       product: productdata[0],
                       order: data[i],
@@ -216,7 +215,7 @@ const Myorder_store = async (req, res) => {
           );
         }
         res.send(orderdata);
-      }else {
+      } else {
         res.send([]);
       }
     })
@@ -249,7 +248,7 @@ const login = async (req, res) => {
             password,
             checkuser[0].password
           );
-         
+
           if (passwordresult == true) {
             let token = jwt.sign({ userid: checkuser[0].user_id }, secret, {
               expiresIn: "24h",
@@ -265,7 +264,6 @@ const login = async (req, res) => {
               message: "Wrong Password.. Please Check",
             });
           }
-          
         } else {
           res.json({
             status: 400,
@@ -275,7 +273,6 @@ const login = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err)
       res.status(500).send({
         message: err.message || "Some error occurred in query.",
       });

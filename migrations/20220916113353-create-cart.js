@@ -9,7 +9,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       product_id: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "Products",
+          key: "id",
+          as: "product_id",
+        },
       },
       user_id: {
         type: Sequelize.STRING

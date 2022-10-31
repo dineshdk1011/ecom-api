@@ -2,6 +2,7 @@ const models = require("../models");
 const Wishlist = models.Wishlist;
 const Product = models.Products;
 const User = models.User;
+const Variation = models.Variations;
 
 const create = async (req, res) => {
   const data = req.body;
@@ -103,20 +104,27 @@ const mywishlist = async (req, res) => {
   const data = req.body.user_id;
   await Wishlist.findAll({ where: { user_id: data } })
     .then(async (data) => {
+      console.log(data);
+
       if (data.length !== 0) {
         var orderdata = [];
         for (var i = 0; i < data.length; i++) {
           await Product.findAll({ where: { id: data[i].product_id } }).then(
             async (productdata) => {
-              await User.findAll({ where: { user_id: req.body.user_id } }).then(
-                (userdata) => {
+              await Variation.findAll({
+                where: { id: data[i].variations },
+              }).then(async (variationdata) => {
+                await User.findAll({
+                  where: { user_id: req.body.user_id },
+                }).then((userdata) => {
                   orderdata.push({
                     product: productdata[0],
                     wishlist: data[i],
+                    variation: variationdata[0],
                     user: userdata[0],
                   });
-                }
-              );
+                });
+              });
             }
           );
         }

@@ -21,7 +21,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       store: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Stores',
+          key: 'id',
+          as: 'store',
+        }
       },
       createdAt: {
         allowNull: false,

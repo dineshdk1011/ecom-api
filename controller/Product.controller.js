@@ -1,3 +1,4 @@
+const db = require("../models");
 const models = require("../models");
 const Product = models.Products;
 const Gallery = models.Gallery;
@@ -126,7 +127,7 @@ const update = async (req, res) => {
 const destroy = async (req, res) => {
   const data = req.body.id;
 
-  await Product.destroy({ where: { id: data } })
+  await Product.destroy({ where: { id: data },include: [db.Gallery,db.Variations,db.Review,db.Wishlist,db.Order,db.Cart,db.Store] })
     .then(() => {
       res.json({
         status: 200,

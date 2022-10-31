@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Coverimg.belongsTo(models.Store, {
+        foreignKey: "store",
+        onDelete: "CASCADE",
+      });
     }
   }
   Coverimg.init({

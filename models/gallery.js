@@ -1,25 +1,19 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Gallery extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
-  Gallery.init({
-    thumbnail: DataTypes.STRING,
-    original: DataTypes.STRING,
-    productID: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Gallery',
-  });
+  const Gallery = sequelize.define(
+    "Gallery",
+    {
+      thumbnail: DataTypes.STRING,
+      original: DataTypes.STRING,
+      productID: DataTypes.STRING,
+    },
+    {}
+  );
+  Gallery.associate = function (models) {
+    // associations can be defined here
+    Gallery.belongsTo(models.Products, {
+      foreignKey: "productID",
+      onDelete: "CASCADE",
+    });
+  };
   return Gallery;
 };
