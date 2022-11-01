@@ -58,9 +58,9 @@ const viewbyuser = async (req, res) => {
 };
 const view = async (req, res) => {
   const data = req.body.id;
-
   await Store.findAll({ where: { id: data } })
     .then((data) => {
+      console.log(data)
       res.json({
         status: 200,
         message: "SUCCESS",
@@ -68,6 +68,7 @@ const view = async (req, res) => {
       });
     })
     .catch((err) => {
+      console.log(err)
       res.json({
         status: 400,
         message: "Some error occurred in query",
