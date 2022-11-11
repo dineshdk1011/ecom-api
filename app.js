@@ -63,6 +63,20 @@ app.use("/coverimg", coverimgRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
+const dns = require("dns");
+
+var hostname = "codepurple.in";
+dns.lookup(hostname, (err, value, family) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log("value:", value);
+  console.log("family", family);
+});
+dns.resolveTxt("codepurple.in", (err, addresses) =>
+  console.log("TXT records: %j", addresses)
+);
 
 // error handler
 app.use(function (err, req, res, next) {

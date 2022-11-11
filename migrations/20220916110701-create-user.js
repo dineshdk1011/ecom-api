@@ -29,6 +29,9 @@ module.exports = {
       user_id: {
         type: Sequelize.STRING,
       },
+      store: {
+        type: Sequelize.STRING,
+      },
       profilepic: {
         type: Sequelize.STRING,
       },

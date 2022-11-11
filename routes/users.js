@@ -14,6 +14,10 @@ router.get("/viewall", userController.viewall);
 router.post("/destroy", userController.destroy);
 router.post("/myorder", userController.Myorder);
 router.post("/Myorder_store", userController.Myorder_store);
+router.post("/Completedorder", userController.Completedorder);
+router.post("/Pendingorder", userController.Pendingorder);
+router.post("/Processingorder", userController.Processingorder);
+router.post("/Cancelorder",userController.Cancelorder)
 router.post("/login", userController.login);
 router.post("/viewUser", userController.viewUser);
 

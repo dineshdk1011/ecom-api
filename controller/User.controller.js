@@ -227,6 +227,182 @@ const Myorder_store = async (req, res) => {
       });
     });
 };
+const Completedorder = async (req, res) => {
+  const data = req.body.id;
+  await Order.findAll({ where: { store: data, status: "Completed" } })
+    .then(async (data) => {
+      if (data.length !== 0) {
+        var orderdata = [];
+        for (var i = 0; i < data.length; i++) {
+          await Product.findAll({ where: { id: data[i].product_id } }).then(
+            async (productdata) => {
+              await Variation.findAll({
+                where: { id: data[i].variations },
+              }).then(async (variationdata) => {
+                await User.findAll({
+                  where: { user_id: data[i].user_id },
+                }).then(async (userdata) => {
+                  await Review.findAll({
+                    where: { orderid: data[i].id },
+                  }).then((reviewdata) => {
+                    orderdata.push({
+                      product: productdata[0],
+                      order: data[i],
+                      variation: variationdata[0],
+                      user: userdata[0],
+                      review: reviewdata[0],
+                    });
+                  });
+                });
+              });
+            }
+          );
+        }
+        res.send(orderdata);
+      } else {
+        res.send([]);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({
+        status: 400,
+        message: "Some error occurred in query",
+      });
+    });
+};
+const Pendingorder = async (req, res) => {
+  const data = req.body.id;
+  await Order.findAll({ where: { store: data, status: "Booked" } })
+    .then(async (data) => {
+      if (data.length !== 0) {
+        var orderdata = [];
+        for (var i = 0; i < data.length; i++) {
+          await Product.findAll({ where: { id: data[i].product_id } }).then(
+            async (productdata) => {
+              await Variation.findAll({
+                where: { id: data[i].variations },
+              }).then(async (variationdata) => {
+                await User.findAll({
+                  where: { user_id: data[i].user_id },
+                }).then(async (userdata) => {
+                  await Review.findAll({
+                    where: { orderid: data[i].id },
+                  }).then((reviewdata) => {
+                    orderdata.push({
+                      product: productdata[0],
+                      order: data[i],
+                      variation: variationdata[0],
+                      user: userdata[0],
+                      review: reviewdata[0],
+                    });
+                  });
+                });
+              });
+            }
+          );
+        }
+        res.send(orderdata);
+      } else {
+        res.send([]);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({
+        status: 400,
+        message: "Some error occurred in query",
+      });
+    });
+};
+const Processingorder = async (req, res) => {
+  const data = req.body.id;
+  await Order.findAll({ where: { store: data, status: "Processing" } })
+    .then(async (data) => {
+      if (data.length !== 0) {
+        var orderdata = [];
+        for (var i = 0; i < data.length; i++) {
+          await Product.findAll({ where: { id: data[i].product_id } }).then(
+            async (productdata) => {
+              await Variation.findAll({
+                where: { id: data[i].variations },
+              }).then(async (variationdata) => {
+                await User.findAll({
+                  where: { user_id: data[i].user_id },
+                }).then(async (userdata) => {
+                  await Review.findAll({
+                    where: { orderid: data[i].id },
+                  }).then((reviewdata) => {
+                    orderdata.push({
+                      product: productdata[0],
+                      order: data[i],
+                      variation: variationdata[0],
+                      user: userdata[0],
+                      review: reviewdata[0],
+                    });
+                  });
+                });
+              });
+            }
+          );
+        }
+        res.send(orderdata);
+      } else {
+        res.send([]);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({
+        status: 400,
+        message: "Some error occurred in query",
+      });
+    });
+};
+const Cancelorder = async (req, res) => {
+  const data = req.body.id;
+  await Order.findAll({ where: { store: data, status: "Cancel" } })
+    .then(async (data) => {
+      if (data.length !== 0) {
+        var orderdata = [];
+        for (var i = 0; i < data.length; i++) {
+          await Product.findAll({ where: { id: data[i].product_id } }).then(
+            async (productdata) => {
+              await Variation.findAll({
+                where: { id: data[i].variations },
+              }).then(async (variationdata) => {
+                await User.findAll({
+                  where: { user_id: data[i].user_id },
+                }).then(async (userdata) => {
+                  await Review.findAll({
+                    where: { orderid: data[i].id },
+                  }).then((reviewdata) => {
+                    orderdata.push({
+                      product: productdata[0],
+                      order: data[i],
+                      variation: variationdata[0],
+                      user: userdata[0],
+                      review: reviewdata[0],
+                    });
+                  });
+                });
+              });
+            }
+          );
+        }
+        res.send(orderdata);
+      } else {
+        res.send([]);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({
+        status: 400,
+        message: "Some error occurred in query",
+      });
+    });
+};
 
 const login = async (req, res) => {
   const email = req.body.email;
@@ -289,4 +465,8 @@ module.exports = {
   login,
   viewUser,
   Myorder_store,
+  Completedorder,
+  Pendingorder,
+  Processingorder,
+  Cancelorder
 };
