@@ -121,6 +121,31 @@ const update = async (req, res) => {
     });
 };
 
+const updatePassword = async (req, res) => {
+  const value = req.body;
+  const id = req.body.id;
+  var salt = bcrypt.genSaltSync(10);
+  var hash = bcrypt.hashSync(req.body.password, salt);
+  value["password"] = hash;
+
+  await User.update(value, {
+    where: {
+      id: id,
+    },
+  })
+    .then(() => {
+      res.json({
+        status: 200,
+        message: "Updated Successfully",
+      });
+    })
+    .catch((err) => {
+      res.json({
+        status: 400,
+        message: "Some error occurred in query",
+      });
+    });
+};
 const destroy = async (req, res) => {
   const data = req.body.id;
 
@@ -468,5 +493,6 @@ module.exports = {
   Completedorder,
   Pendingorder,
   Processingorder,
-  Cancelorder
+  Cancelorder,
+  updatePassword
 };

@@ -9,6 +9,7 @@ router.get("/", function (req, res, next) {
 
 router.post("/create", userController.create);
 router.post("/update", userController.update);
+router.post('/updatepassword',userController.updatePassword)
 router.get("/view", userController.view);
 router.get("/viewall", userController.viewall);
 router.post("/destroy", userController.destroy);

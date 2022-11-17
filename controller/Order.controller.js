@@ -1,11 +1,10 @@
 const models = require("../models");
 const Order = models.Order;
 const { v1: uuidv1 } = require("uuid");
-const Razorpay = require('razorpay')
+const Razorpay = require("razorpay");
 
 const create = async (req, res) => {
   const data = req.body;
-  data["order_id"] = uuidv1();
   await Order.create(data)
     .then((data) => {
       res.json({
@@ -103,19 +102,20 @@ const destroy = async (req, res) => {
 const Payment = async (req, res) => {
   try {
     const instance = new Razorpay({
-      key_id: "rzp_test_wwtzZzqIUwIpk2",
-      key_secret: "5jbB43weLx8qXzBmKpVWsAgb",
+      key_id: "rzp_test_MFcpaYfgLbGZIO",
+      key_secret: "2tCQbx3f71pBS0MWkWyitZKd",
     });
     const options = {
-      amount: req.body.amount*100,
+      amount: req.body.amount * 100,
       currency: "INR",
       receipt: "receipt_order_74394",
     };
+    console.log(options);
     const order = await instance.orders.create(options);
     if (!order) return res.status(500).send("Some error occured");
     res.json(order);
   } catch (error) {
-    console.log(error)
+    res.json(error);
   }
 };
 
@@ -125,5 +125,5 @@ module.exports = {
   view,
   update,
   destroy,
-  Payment
+  Payment,
 };
