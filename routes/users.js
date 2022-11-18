@@ -21,5 +21,6 @@ router.post("/Processingorder", userController.Processingorder);
 router.post("/Cancelorder",userController.Cancelorder)
 router.post("/login", userController.login);
 router.post("/viewUser", userController.viewUser);
+router.post('/checkpassword',userController.Checkpassword)
 
 module.exports = router;

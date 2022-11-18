@@ -146,6 +146,39 @@ const updatePassword = async (req, res) => {
       });
     });
 };
+const Checkpassword = async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+console.log(req.body)
+  await User.findAll()
+    .then(async (data) => {
+      if (data.length == 0) {
+        res.json({
+          status: 400,
+          message: "Please Register...",
+        });
+      } else {
+        var checkuser = await data.filter((datanew) => {
+          return datanew.email === email;
+        });
+        if (checkuser.length !== 0) {
+          let passwordresult = await bcrypt.compare(
+            password,
+            checkuser[0].password
+          );
+          res.send(passwordresult);
+        } else {
+          res.send("Not Valid User..");
+        }
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred in query.",
+      });
+    });
+};
+
 const destroy = async (req, res) => {
   const data = req.body.id;
 
@@ -494,5 +527,6 @@ module.exports = {
   Pendingorder,
   Processingorder,
   Cancelorder,
-  updatePassword
+  updatePassword,
+  Checkpassword
 };
