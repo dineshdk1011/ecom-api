@@ -25,6 +25,7 @@ var themeController = require("./routes/theme");
 var reviewRouter = require("./routes/review");
 var navRouter = require("./routes/Navbar");
 var coverimgRouter = require("./routes/coverimg");
+var aboutRouter = require("./routes/about");
 
 var app = express();
 app.use(cors());
@@ -58,6 +59,8 @@ app.use("/journal", journalRouter);
 app.use("/theme", themeController);
 app.use("/review", reviewRouter);
 app.use("/coverimg", coverimgRouter);
+app.use("/about", aboutRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
