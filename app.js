@@ -27,6 +27,7 @@ var navRouter = require("./routes/Navbar");
 var coverimgRouter = require("./routes/coverimg");
 var aboutRouter = require("./routes/about");
 var CouponRouter = require("./routes/Coupon");
+var addressRouter = require("./routes/address");
 
 var app = express();
 app.use(cors());
@@ -62,6 +63,7 @@ app.use("/review", reviewRouter);
 app.use("/coverimg", coverimgRouter);
 app.use("/about", aboutRouter);
 app.use("/coupon", CouponRouter);
+app.use("/address", addressRouter);
 
 
 // catch 404 and forward to error handler

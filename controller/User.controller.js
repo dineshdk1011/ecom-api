@@ -4,6 +4,8 @@ const Order = models.Order;
 const Product = models.Products;
 const Variation = models.Variations;
 const Review = models.Review;
+const Address = models.Address;
+const Coupon = models.Coupon;
 const { v1: uuidv1 } = require("uuid");
 const bcrypt = require("bcryptjs");
 const secret = "4641316895";
@@ -149,7 +151,6 @@ const updatePassword = async (req, res) => {
 const Checkpassword = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-console.log(req.body)
   await User.findAll()
     .then(async (data) => {
       if (data.length == 0) {
@@ -205,6 +206,7 @@ const Myorder = async (req, res) => {
       if (data.length !== 0) {
         var orderdata = [];
         for (var i = 0; i < data.length; i++) {
+          console.log(data[i].address);
           await Product.findAll({ where: { id: data[i].product_id } }).then(
             async (productdata) => {
               await Variation.findAll({
@@ -215,13 +217,23 @@ const Myorder = async (req, res) => {
                 }).then(async (userdata) => {
                   await Review.findAll({
                     where: { orderid: data[i].id },
-                  }).then((reviewdata) => {
-                    orderdata.push({
-                      product: productdata[0],
-                      order: data[i],
-                      variation: variationdata[0],
-                      user: userdata[0],
-                      review: reviewdata[0],
+                  }).then(async (reviewdata) => {
+                    await Address.findAll({
+                      where: { id: data[i].address },
+                    }).then(async (addressdata) => {
+                      await Coupon.findAll({
+                        where: { id: data[i].address },
+                      }).then((coupondata) => {
+                        orderdata.push({
+                          product: productdata[0],
+                          order: data[i],
+                          variation: variationdata[0],
+                          user: userdata[0],
+                          review: reviewdata[0],
+                          address: addressdata[0],
+                          coupon: coupondata[0],
+                        });
+                      });
                     });
                   });
                 });
@@ -258,13 +270,23 @@ const Myorder_store = async (req, res) => {
                 }).then(async (userdata) => {
                   await Review.findAll({
                     where: { orderid: data[i].id },
-                  }).then((reviewdata) => {
-                    orderdata.push({
-                      product: productdata[0],
-                      order: data[i],
-                      variation: variationdata[0],
-                      user: userdata[0],
-                      review: reviewdata[0],
+                  }).then(async (reviewdata) => {
+                    await Address.findAll({
+                      where: { id: data[i].address },
+                    }).then(async (addressdata) => {
+                      await Coupon.findAll({
+                        where: { id: data[i].address },
+                      }).then((coupondata) => {
+                        orderdata.push({
+                          product: productdata[0],
+                          order: data[i],
+                          variation: variationdata[0],
+                          user: userdata[0],
+                          review: reviewdata[0],
+                          address: addressdata[0],
+                          coupon: coupondata[0],
+                        });
+                      });
                     });
                   });
                 });
@@ -302,13 +324,23 @@ const Completedorder = async (req, res) => {
                 }).then(async (userdata) => {
                   await Review.findAll({
                     where: { orderid: data[i].id },
-                  }).then((reviewdata) => {
-                    orderdata.push({
-                      product: productdata[0],
-                      order: data[i],
-                      variation: variationdata[0],
-                      user: userdata[0],
-                      review: reviewdata[0],
+                  }).then(async (reviewdata) => {
+                    await Address.findAll({
+                      where: { id: data[i].address },
+                    }).then(async (addressdata) => {
+                      await Coupon.findAll({
+                        where: { id: data[i].address },
+                      }).then((coupondata) => {
+                        orderdata.push({
+                          product: productdata[0],
+                          order: data[i],
+                          variation: variationdata[0],
+                          user: userdata[0],
+                          review: reviewdata[0],
+                          address: addressdata[0],
+                          coupon: coupondata[0],
+                        });
+                      });
                     });
                   });
                 });
@@ -346,13 +378,23 @@ const Pendingorder = async (req, res) => {
                 }).then(async (userdata) => {
                   await Review.findAll({
                     where: { orderid: data[i].id },
-                  }).then((reviewdata) => {
-                    orderdata.push({
-                      product: productdata[0],
-                      order: data[i],
-                      variation: variationdata[0],
-                      user: userdata[0],
-                      review: reviewdata[0],
+                  }).then(async (reviewdata) => {
+                    await Address.findAll({
+                      where: { id: data[i].address },
+                    }).then(async (addressdata) => {
+                      await Coupon.findAll({
+                        where: { id: data[i].address },
+                      }).then((coupondata) => {
+                        orderdata.push({
+                          product: productdata[0],
+                          order: data[i],
+                          variation: variationdata[0],
+                          user: userdata[0],
+                          review: reviewdata[0],
+                          address: addressdata[0],
+                          coupon: coupondata[0],
+                        });
+                      });
                     });
                   });
                 });
@@ -390,13 +432,23 @@ const Processingorder = async (req, res) => {
                 }).then(async (userdata) => {
                   await Review.findAll({
                     where: { orderid: data[i].id },
-                  }).then((reviewdata) => {
-                    orderdata.push({
-                      product: productdata[0],
-                      order: data[i],
-                      variation: variationdata[0],
-                      user: userdata[0],
-                      review: reviewdata[0],
+                  }).then(async (reviewdata) => {
+                    await Address.findAll({
+                      where: { id: data[i].address },
+                    }).then(async (addressdata) => {
+                      await Coupon.findAll({
+                        where: { id: data[i].address },
+                      }).then((coupondata) => {
+                        orderdata.push({
+                          product: productdata[0],
+                          order: data[i],
+                          variation: variationdata[0],
+                          user: userdata[0],
+                          review: reviewdata[0],
+                          address: addressdata[0],
+                          coupon: coupondata[0],
+                        });
+                      });
                     });
                   });
                 });
@@ -434,13 +486,23 @@ const Cancelorder = async (req, res) => {
                 }).then(async (userdata) => {
                   await Review.findAll({
                     where: { orderid: data[i].id },
-                  }).then((reviewdata) => {
-                    orderdata.push({
-                      product: productdata[0],
-                      order: data[i],
-                      variation: variationdata[0],
-                      user: userdata[0],
-                      review: reviewdata[0],
+                  }).then(async (reviewdata) => {
+                    await Address.findAll({
+                      where: { id: data[i].address },
+                    }).then(async (addressdata) => {
+                      await Coupon.findAll({
+                        where: { id: data[i].address },
+                      }).then((coupondata) => {
+                        orderdata.push({
+                          product: productdata[0],
+                          order: data[i],
+                          variation: variationdata[0],
+                          user: userdata[0],
+                          review: reviewdata[0],
+                          address: addressdata[0],
+                          coupon: coupondata[0],
+                        });
+                      });
                     });
                   });
                 });
@@ -528,5 +590,5 @@ module.exports = {
   Processingorder,
   Cancelorder,
   updatePassword,
-  Checkpassword
+  Checkpassword,
 };

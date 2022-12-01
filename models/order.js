@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
       status: DataTypes.STRING,
       store: DataTypes.STRING,
       order_id: DataTypes.STRING,
+      address: DataTypes.STRING,
+      coupon:DataTypes.STRING,
     },
     {}
   );

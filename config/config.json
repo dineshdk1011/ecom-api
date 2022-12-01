@@ -1,22 +1,22 @@
 {
   "development": {
-    "username": "ecom-dev",
-    "password": "yWsbmrXi4eZinWrp",
-    "database": "ecom-dev",
+    "username": "vmix_new",
+    "password": "GLryXpDhXeZmZc5r",
+    "database": "vmix_new",
     "host": "168.119.159.183",
     "dialect": "mysql"
   },
   "test": {
-    "username": "ecom-dev",
-    "password": "yWsbmrXi4eZinWrp",
-    "database": "ecom-dev",
+    "username": "vmix_new",
+    "password": "GLryXpDhXeZmZc5r",
+    "database": "vmix_new",
     "host": "168.119.159.183",
     "dialect": "mysql"
   },
   "production": {
-    "username": "ecom-dev",
-    "password": "yWsbmrXi4eZinWrp",
-    "database": "ecom-dev",
+    "username": "vmix_new",
+    "password": "GLryXpDhXeZmZc5r",
+    "database": "vmix_new",
     "host": "168.119.159.183",
     "dialect": "mysql"
   }

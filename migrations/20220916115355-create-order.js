@@ -38,6 +38,12 @@ module.exports = {
       order_id: {
         type: Sequelize.STRING,
       },
+      address: {
+        type: Sequelize.STRING,
+      },
+      coupon: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
